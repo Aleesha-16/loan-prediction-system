@@ -1,5 +1,18 @@
 # 🏦 Loan Approval Prediction System (Deployment Repository)
 
+<p align="center">
+
+![Python](https://img.shields.io/badge/Python-3.10+-blue?style=for-the-badge&logo=python)
+![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-Random%20Forest-orange?style=for-the-badge&logo=scikitlearn)
+![Gradio](https://img.shields.io/badge/Gradio-Web%20Interface-FF6F00?style=for-the-badge)
+![Render](https://img.shields.io/badge/Hosted%20on-Render-46E3B7?style=for-the-badge&logo=render)
+
+</p>
+
+<p align="center">
+A Machine Learning web application that predicts whether a loan application is likely to be <b>Approved</b> or <b>Rejected</b> based on an applicant's financial profile.
+</p>
+
 ## 📖 About the Project
 The **Loan Approval Prediction System** is a machine learning application designed to predict whether an applicant's loan will be approved or rejected based on 11 personal and financial metrics (such as CIBIL Score, Annual Income, Loan Amount, and Asset Values). It utilizes a **Random Forest Classifier** to analyze the applicant's profile and assess their eligibility.
 
@@ -20,7 +33,7 @@ The prediction is based on **11 important applicant features**, including:
 ⚠️ **Important Note:** This repository is specifically structured and configured for **Render Deployment/Hosting**. 
 
 If you are looking for the complete machine learning workflow—including data exploration, feature selection, outlier removal, model training, and the raw dataset—please visit the Google Colab Notebook linked below:
-👉 **[Full Source Code & Dataset (Google Colab)]([YOUR_COLAB_LINK_HERE](https://colab.research.google.com/drive/1Mb4VK3x1xwRpS4GFFrO0WP9-gGz5rh4C#scrollTo=aAzTNXgmOfB1))**
+👉 **[Full Source Code & Dataset (Google Colab)]([https://colab.research.google.com/drive/1Mb4VK3x1xwRpS4GFFrO0WP9-gGz5rh4C#scrollTo=aAzTNXgmOfB1])**
 
 ---
 
@@ -76,7 +89,7 @@ Check out the live, working version of this project hosted on Render:
 
 ## 👨‍💻 Developer
    **Aleesha**
-   🎓 B.Tech Information Technology Student
+        🎓 B.Tech Information Technology Student
 * **LinkedIn:** [Connect with me](https://www.linkedin.com/in/aleesha-8117a1320)
 * **GitHub:** [Check out my projects](https://github.com/aleesha-16)
 
@@ -88,4 +101,4 @@ Please consider giving this repository a ⭐ on GitHub.
 
 It motivates me to build and share more Machine Learning projects!
 
----zw
+---
