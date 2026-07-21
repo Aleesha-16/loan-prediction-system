@@ -1,30 +1,87 @@
-# app.py
-
-# --- CHANGED BLOCK START ---
-import gradio as gr
+import os
 import joblib
-import spaces
+import pandas as pd
+import gradio as gr
 
-# We load the model once when the app starts
-deployed_lr = joblib.load('my_first_ml_model.pkl')
+# Load model
+model = joblib.load("loan_prediction_model.pkl")
 
-# --- ZERO-GPU DECORATOR AND PREDICTION LOGIC ---
-@spaces.GPU
-def predict_rent(size_of_prop):
-    # The model expects a 2D array: [[size]]
-    prediction = deployed_lr.predict([[size_of_prop]])
-    # Extract the single prediction value and format it
-    return f"Estimated Rent: {prediction[0]:.2f}"
 
-# Create the web interface
+def predict_loan(
+    no_of_dependents,
+    education,
+    self_employed,
+    income_annum,
+    loan_amount,
+    loan_term,
+    cibil_score,
+    residential_assets_value,
+    commercial_assets_value,
+    luxury_assets_value,
+    bank_asset_value,
+):
+
+    # Convert categorical values
+    education = 1 if education == "Graduate" else 0
+    self_employed = 1 if self_employed == "Yes" else 0
+
+    data = pd.DataFrame(
+        [[
+            no_of_dependents,
+            education,
+            self_employed,
+            income_annum,
+            loan_amount,
+            loan_term,
+            cibil_score,
+            residential_assets_value,
+            commercial_assets_value,
+            luxury_assets_value,
+            bank_asset_value,
+        ]],
+        columns=[
+            " no_of_dependents",
+            " education",
+            " self_employed",
+            " income_annum",
+            " loan_amount",
+            " loan_term",
+            " cibil_score",
+            " residential_assets_value",
+            " commercial_assets_value",
+            " luxury_assets_value",
+            " bank_asset_value",
+        ],
+    )
+
+    prediction = model.predict(data)[0]
+
+    if prediction == 1:
+        return "✅ Loan Approved"
+    else:
+        return "❌ Loan Rejected"
+
+
 interface = gr.Interface(
-    fn=predict_rent,
-    inputs=gr.Number(label="Please Enter the Size of Your Property for rent"),
-    outputs=gr.Text(label="Predicted Rent"),
-    title="Property Rent Predictor",
-    description="Enter the property size to get a rent estimate powered by Machine Learning."
+    fn=predict_loan,
+    inputs=[
+        gr.Number(label="Number of Dependents"),
+        gr.Radio(["Graduate", "Not Graduate"], label="Education"),
+        gr.Radio(["Yes", "No"], label="Self Employed"),
+        gr.Number(label="Annual Income"),
+        gr.Number(label="Loan Amount"),
+        gr.Number(label="Loan Term"),
+        gr.Number(label="CIBIL Score"),
+        gr.Number(label="Residential Assets Value"),
+        gr.Number(label="Commercial Assets Value"),
+        gr.Number(label="Luxury Assets Value"),
+        gr.Number(label="Bank Asset Value"),
+    ],
+    outputs=gr.Textbox(label="Prediction"),
+    title="🏦 Loan Approval Prediction",
+    description="Enter applicant details to predict loan approval.",
 )
 
 if __name__ == "__main__":
-    interface.launch()
-# --- CHANGED BLOCK END ---
+    port = int(os.environ.get("PORT", 7860))
+    interface.launch(server_name="0.0.0.0", server_port=port)
